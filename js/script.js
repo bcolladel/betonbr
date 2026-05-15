@@ -13,7 +13,9 @@ if (nav) {
 const revealEls = document.querySelectorAll('.reveal');
 if (revealEls.length) {
   const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
   }, { threshold: 0.1 });
   revealEls.forEach(el => io.observe(el));
 }
@@ -22,7 +24,7 @@ if (revealEls.length) {
 const yr = document.getElementById('yr');
 if (yr) yr.textContent = new Date().getFullYear();
 
-/* ── Lead Form — HubSpot + Wix CRM ── */
+/* ── Lead Form — HubSpot ── */
 const form = document.getElementById('leadForm');
 if (form) {
   form.addEventListener('submit', async (e) => {
@@ -33,92 +35,89 @@ if (form) {
     btn.disabled = true;
     btn.textContent = 'Enviando...';
 
-    // Collect all fields
-    const data = {
-      nome:            form.nome?.value?.trim() || '',
-      empresa:         form.empresa?.value?.trim() || '',
-      email:           form.email?.value?.trim() || '',
-      telefone:        form.telefone?.value?.trim() || '',
-      interesse:       form.interesse?.value || '',
-      evento_interesse:form.evento_interesse?.value || '',
-      email_consent:   form.email_consent?.checked ? 'sim' : 'nao',
-      lgpd_consent:    form.info?.checked ? 'sim' : 'nao',
-      origem:          'landing-betonbr-tech-edition',
-      timestamp:       new Date().toISOString()
-    };
+    // Collect fields
+    const nome     = (form.nome?.value || '').trim();
+    const empresa  = (form.empresa?.value || '').trim();
+    const email    = (form.email?.value || '').trim();
+    const telefone = (form.telefone?.value || '').trim();
+    const interesse       = form.interesse?.value || '';
+    const evento_interesse = form.evento_interesse?.value || '';
+    const email_consent   = form.email_consent?.checked;
+    const lgpd_consent    = form.info?.checked;
 
-    // Validate required
-    if (!data.nome || !data.email) {
+    // Validate
+    if (!nome || !email) {
       btn.disabled = false;
       btn.textContent = 'Quero receber informações →';
       alert('Por favor, preencha nome e e-mail.');
       return;
     }
 
+    const parts = nome.split(' ');
+    const firstname = parts[0] || '';
+    const lastname  = parts.slice(1).join(' ') || '';
+
     try {
-      // ── 1. HubSpot Forms API (portal 48584793 — substitua pelo seu) ──
-      const HUBSPOT_PORTAL_ID  = '44677090';
-      const HUBSPOT_FORM_GUID  = '7b98c46d-77c8-40b2-88fd-6aeb4d1b4869';
+      // ── HubSpot Forms API ──
+      // FIX 1: campos 'interesse' e 'evento_interesse' precisam existir no HubSpot
+      //         antes de enviar — usando apenas campos padrão + campos customizados válidos
+      // FIX 2: subscriptionTypeId 999 não existe — removido legalConsentOptions
+      //         (o formulário HubSpot já tem LGPD configurado no próprio portal)
+      // FIX 3: context adicionado (pageUri e pageName) para rastreamento
+
       const hsPayload = {
         fields: [
-          { name: 'firstname',        value: data.nome.split(' ')[0] },
-          { name: 'lastname',         value: data.nome.split(' ').slice(1).join(' ') },
-          { name: 'company',          value: data.empresa },
-          { name: 'email',            value: data.email },
-          { name: 'phone',            value: data.telefone },
-          { name: 'interesse',        value: data.interesse },
-          { name: 'evento_interesse', value: data.evento_interesse },
-          { name: 'email_consent',    value: data.email_consent },
-          { name: 'lgpd_consent',     value: data.lgpd_consent },
-        ],
-        legalConsentOptions: {
-          consent: {
-            consentToProcess: data.lgpd_consent === 'sim',
-            text: 'Concordo em compartilhar meus dados conforme a LGPD (Lei 13.709/2018).',
-            communications: data.email_consent === 'sim' ? [
-              { value: true, subscriptionTypeId: 999, text: 'Quero receber informações e condições especiais por e-mail.' }
-            ] : []
+          { name: 'firstname', value: firstname },
+          { name: 'lastname',  value: lastname  },
+          { name: 'email',     value: email     },
+          { name: 'company',   value: empresa   },
+          { name: 'phone',     value: telefone  },
+          { name: 'message',   value:
+            `Interesse: ${interesse} | Evento: ${evento_interesse} | Email consent: ${email_consent ? 'sim' : 'nao'} | LGPD: ${lgpd_consent ? 'sim' : 'nao'}`
           }
+        ],
+        context: {
+          pageUri:  'https://betonbr.com',
+          pageName: 'Bet ON Brasil: Tech Edition'
         }
       };
 
-      await fetch(
-          `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`,
-          { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(hsPayload) }
+      const hsRes = await fetch(
+        'https://api.hsforms.com/submissions/v3/integration/submit/44677090/7b98c46d-77c8-40b2-88fd-6aeb4d1b4869',
+        {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(hsPayload)
+        }
       );
 
-      // ── 2. Wix Inbox / CRM via Wix Forms ──
-      // Envia para o endpoint do Wix (configurar webhook no painel Wix)
-      const WIX_WEBHOOK = 'SEU_WIX_WEBHOOK_URL';
-      if (WIX_WEBHOOK !== 'SEU_WIX_WEBHOOK_URL') {
-        await fetch(WIX_WEBHOOK, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
+      // Log HubSpot response for debugging
+      if (!hsRes.ok) {
+        const errText = await hsRes.text();
+        console.error('HubSpot error:', hsRes.status, errText);
+      } else {
+        console.log('HubSpot OK:', hsRes.status);
       }
 
-      // ── 3. Fallback: Formspree (funciona sem configuração extra) ──
+      // ── Formspree (backup) ──
       await fetch('https://formspree.io/f/xvgrzpow', {
-        method: 'POST',
+        method:  'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          nome: data.nome, email: data.email, empresa: data.empresa,
-          telefone: data.telefone, interesse: data.interesse,
-          evento_interesse: data.evento_interesse,
-          email_consent: data.email_consent, lgpd_consent: data.lgpd_consent
-        })
+        body: JSON.stringify({ nome, email, empresa, telefone, interesse, evento_interesse,
+          email_consent: email_consent ? 'sim' : 'nao',
+          lgpd_consent:  lgpd_consent  ? 'sim' : 'nao' })
       });
 
       // Success
       form.reset();
-      if (ok) { ok.style.display = 'block'; }
+      if (ok) ok.style.display = 'block';
       btn.textContent = '✓ Enviado!';
 
     } catch (err) {
       console.error('Form error:', err);
       btn.disabled = false;
       btn.textContent = 'Quero receber informações →';
+      alert('Erro ao enviar. Tente novamente ou entre em contato diretamente.');
     }
   });
 }
