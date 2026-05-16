@@ -1,44 +1,404 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Bet ON Brasil · Tech Edition</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<style>
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html,body{background:#0e1620;color:#dbe3f1;font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;}
-  body{cursor:none;}
-  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
-  @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-  @keyframes marqueeL{from{transform:translateX(0%)}to{transform:translateX(-50%)}}
-  @keyframes marqueeR{from{transform:translateX(-50%)}to{transform:translateX(0%)}}
-  @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
-  @keyframes glow{0%,100%{opacity:0.4}50%{opacity:1}}
-  input::placeholder{color:rgba(148,163,184,0.45);}
-  select option{background:#141c28;color:#dbe3f1;}
-  a,button,select,input{cursor:none;}
-  ::-webkit-scrollbar{width:10px;height:10px;}
-  ::-webkit-scrollbar-track{background:#0e1620;}
-  ::-webkit-scrollbar-thumb{background:rgba(73,253,227,0.15);border-radius:10px;}
-  ::-webkit-scrollbar-thumb:hover{background:rgba(73,253,227,0.3);}
-  .stat-card{height:100%;display:flex;}
-</style>
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<html lang="pt-BR"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="assets/favicon-192.png">
+  <meta name="theme-color" content="#0e1620">
+<title>Bet ON Brasil</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<template id="__bundler_thumbnail">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-    <rect width="100" height="100" fill="#0e1620"/>
-    <text x="50" y="48" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#49fde3" letter-spacing="2">BET</text>
-    <text x="50" y="68" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="500" fill="#dbe3f1" letter-spacing="3">ON BRASIL</text>
-  </svg>
-</template>
-<div id="root"></div>
-<script type="text/babel" data-presets="react" src="bundle.jsx"></script>
-</body>
-</html>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#hero" class="logo" aria-label="Bet ON Brasil">
+      <img src="assets/images/4c895d63-4923-4404-8cf2-2103690971c5.png" alt="Bet ON Brasil" class="logo-img">
+      <span class="logo-tag">Tech Edition</span>
+    </a>
+    <nav class="main-nav">
+      <a href="#momento">O Momento</a>
+      <a href="#objetivos">Objetivos</a>
+      <a href="#publico">Público</a>
+      <a href="#debates">Debates</a>
+      <a href="#patrocinio">Patrocínio</a>
+      <a href="#agenda">Próximos</a>
+      <a href="#contato" class="nav-cta">Quero Participar</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <div class="grid-ov"></div>
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+  </div>
+  <div class="container hero-inner">
+    <div class="hero-eyebrow">
+      <span class="dot-pulse"></span>
+      20 de Agosto · Cubo Itaú · São Paulo
+    </div>
+    <h1 class="hero-title">
+      Onde a <span class="gt">Tecnologia</span><br>
+      que Sustenta o Mercado<br>
+      Regulamentado se Encontra.
+    </h1>
+    <p class="hero-sub">
+      No dia <strong>20 de Agosto</strong>, o Bet ON Brasil apresenta a <strong>Tech Edition</strong>: um encontro exclusivo entre as empresas, especialistas e autoridades que estão construindo a infraestrutura tecnológica, regulatória e operacional do iGaming no Brasil.
+    </p>
+    <div class="hero-ctas">
+      <a href="#contato" class="btn btn-p">Quero Participar do Evento <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+      <a href="#patrocinio" class="btn btn-g">Ver opções de patrocínio</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">150–200</div><div class="stat-label">decisores presenciais</div></div>
+      <div><div class="stat-num">100%</div><div class="stat-label">conteúdo técnico</div></div>
+      <div><div class="stat-num">1 dia</div><div class="stat-label">de bastidores reais</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- O NOVO MOMENTO -->
+<section class="sec-momento" id="momento">
+  <div class="container">
+    <div class="momento-grid">
+      <div class="reveal">
+        <span class="pill">O novo momento do mercado</span>
+        <h2 class="sf section-title">O mercado regulou.<br><span class="gt">Agora, precisa operar.</span></h2>
+        <p class="lead">Depois do primeiro ano da regulamentação, o desafio do setor deixou de ser jurídico e passou a ser técnico.</p>
+        <div class="chips">
+          <span class="chip">Compliance</span><span class="chip">Antifraude</span><span class="chip">KYC</span>
+          <span class="chip">Pagamentos</span><span class="chip">Segurança da Informação</span>
+          <span class="chip">Dados</span><span class="chip">Integrações</span><span class="chip">Escalabilidade</span>
+        </div>
+        <div class="momento-statement">
+          Este não é um evento sobre apostas.<br>
+          É sobre <strong>como o mercado de apostas funciona por trás.</strong>
+        </div>
+        <div class="cta-row momento-cta">
+          <a href="https://lu.ma/p8ejs7fm" target="_blank" rel="noopener" class="btn btn-p">Retirar meu ingresso</a>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="code-card">
+          <div class="code-hdr">
+            <span class="cd" style="background:#ff5f56"></span>
+            <span class="cd" style="background:#ffbd2e"></span>
+            <span class="cd" style="background:#27c93f"></span>
+            <span style="margin-left:12px;font-size:13px;color:var(--mute)">operacao.regulada</span>
+          </div>
+          <div class="code-bdy">
+            <div><span class="c-com">// stack que sustenta o mercado</span></div>
+            <div><span class="c-key">const</span> <span class="c-var">operacao</span> = {</div>
+            <div style="padding-left:22px"><span class="c-prop">kyc</span>: <span class="c-str">"em tempo real"</span>,</div>
+            <div style="padding-left:22px"><span class="c-prop">antifraude</span>: <span class="c-str">"automatizado"</span>,</div>
+            <div style="padding-left:22px"><span class="c-prop">pagamentos</span>: <span class="c-str">"escaláveis"</span>,</div>
+            <div style="padding-left:22px"><span class="c-prop">dados</span>: <span class="c-str">"acionáveis"</span>,</div>
+            <div style="padding-left:22px"><span class="c-prop">seguranca</span>: <span class="c-str">"crítica"</span>,</div>
+            <div>};</div>
+            <div><span class="c-var">operacao</span>.<span class="c-fn">deploy</span>();<span class="cursor"> |</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJETIVOS -->
+<section id="objetivos">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="pill">Objetivos do evento</span>
+      <h2 class="sf section-title">Por que esta edição é um <span class="gt">marco</span> para o setor</h2>
+    </div>
+    <div class="obj-grid">
+      <article class="obj-card reveal"><div class="obj-num">01</div><h3>Infraestrutura tecnológica</h3><p>Debater o que torna a operação regulada possível na prática.</p></article>
+      <article class="obj-card reveal"><div class="obj-num">02</div><h3>Quem constrói × Quem regula</h3><p>Conectar operadores e reguladores em debate direto e aplicável.</p></article>
+      <article class="obj-card reveal"><div class="obj-num">03</div><h3>Segurança, Compliance e Dados</h3><p>Discutir aplicado ao iGaming regulado — sem rodeios institucionais.</p></article>
+      <article class="obj-card reveal"><div class="obj-num">04</div><h3>Networking qualificado</h3><p>Áreas técnicas, jurídicas, operacionais e estratégicas reunidas.</p></article>
+      <article class="obj-card obj-wide reveal"><div class="obj-num">05</div><h3>Brasil como referência global</h3><p>Posicionar o Brasil como referência em tecnologia aplicada ao mercado regulado mundial.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- QUEM VAI ENCONTRAR -->
+<section class="sec-pub" id="publico">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="pill">Quem você vai encontrar</span>
+      <h2 class="sf section-title">Quem <span class="gt">constrói o mercado</span><br>por trás das marcas</h2>
+      <p class="section-sub">O evento é voltado para os profissionais e empresas que sustentam o ecossistema do iGaming regulado.</p>
+    </div>
+    <div class="pub-grid">
+      <div class="pub-card reveal">
+        <span class="pub-icon"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M4 20c0-3.3 3.6-6 8-6s8 2.7 8 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <span>Operadores</span>
+      </div>
+      <div class="pub-card reveal">
+        <span class="pub-icon"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><rect x="3" y="3" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="13" y="3" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="3" y="13" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="13" y="13" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.8"/></svg></span>
+        <span>Plataformas</span>
+      </div>
+      <div class="pub-card reveal">
+        <span class="pub-icon"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><rect x="2" y="7" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" stroke="currentColor" stroke-width="1.8"/><path d="M12 12v4M10 14h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <span>Meios de Pagamento</span>
+      </div>
+      <div class="pub-card reveal">
+        <span class="pub-icon"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M12 3l9 4v5c0 5-3.8 9.7-9 11C6.8 21.7 3 17 3 12V7l9-4z" stroke="currentColor" stroke-width="1.8"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span>KYC, Antifraude e Compliance</span>
+      </div>
+      <div class="pub-card reveal">
+        <span class="pub-icon"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="7" cy="6" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="17" cy="18" r="1.5" fill="currentColor"/></svg></span>
+        <span>Reguladores e Autoridades</span>
+      </div>
+      <div class="pub-card reveal">
+        <span class="pub-icon"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M12 3L4 7v5c0 4.4 3.4 8.5 8 9.9 4.6-1.4 8-5.5 8-9.9V7l-8-4z" stroke="currentColor" stroke-width="1.8"/><path d="M8 12l2.5 2.5L16 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span>Advogados Especializados</span>
+      </div>
+      <div class="pub-card reveal">
+        <span class="pub-icon"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M4 6h16M4 10h16M4 14h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="17" cy="17" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M19.5 19.5L22 22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <span>Empresas de Tecnologia e Dados</span>
+      </div>
+      <div class="pub-card reveal">
+        <span class="pub-icon"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M18 20V10M12 20V4M6 20v-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <span>Marketing, CRM e Retenção</span>
+      </div>
+    </div>
+    <div class="cta-row">
+      <a href="#contato" class="btn btn-p">Quero posicionar minha marca entre os líderes</a>
+    </div>
+  </div>
+</section>
+
+<!-- POR QUE PATROCINAR -->
+<section id="patrocinio">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="pill">Por que patrocinar</span>
+      <h2 class="sf section-title">Associe sua marca à <span class="gt">infraestrutura</span><br>do mercado regulado</h2>
+    </div>
+    <div class="pillars">
+      <article class="pillar reveal">
+        <div class="pillar-icon"><svg viewBox="0 0 32 32" fill="none" width="30" height="30"><path d="M16 3l11 5v8c0 6.5-4.5 12-11 13C9.5 28 5 22.5 5 16V8l11-5z" stroke="currentColor" stroke-width="1.5"></path><path d="M11 16l3.5 3.5L21 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></div>
+        <h3>Autoridade Técnica</h3>
+        <p>Sua marca conectada ao debate mais estratégico: tecnologia, dados, segurança e compliance no iGaming.</p>
+      </article>
+      <article class="pillar reveal">
+        <div class="pillar-icon"><svg viewBox="0 0 32 32" fill="none" width="30" height="30"><circle cx="10" cy="11" r="4" stroke="currentColor" stroke-width="1.5"></circle><circle cx="22" cy="11" r="4" stroke="currentColor" stroke-width="1.5"></circle><path d="M3 26c0-3.9 3.1-7 7-7s7 3.1 7 7M15 26c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></div>
+        <h3>Networking de Alto Nível</h3>
+        <p>Relacionamento direto com C-levels, Heads e decisores técnicos e operacionais do mercado regulado.</p>
+      </article>
+      <article class="pillar reveal">
+        <div class="pillar-icon"><svg viewBox="0 0 32 32" fill="none" width="30" height="30"><rect x="4" y="6" width="24" height="16" rx="2" stroke="currentColor" stroke-width="1.5"></rect><path d="M10 26h12M16 22v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path d="M10 14l4 4 8-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        <h3>Visibilidade Multiplataforma</h3>
+        <p>Painéis, ativações, imprensa especializada e comunicação ao público mais qualificado do setor.</p>
+      </article>
+      <article class="pillar pillar-wide reveal">
+        <div class="pillar-icon"><svg viewBox="0 0 32 32" fill="none" width="30" height="30"><rect x="4" y="4" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.5"></rect><rect x="18" y="4" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.5"></rect><rect x="4" y="18" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.5"></rect><path d="M18 23h10M23 18v10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></div>
+        <div><h3>Microfórum Patrocinado</h3><p>Espaço de fala exclusivo com branding, ativação prática no evento e possibilidade de referral agreement.</p></div>
+      </article>
+    </div>
+    <p class="pat-close reveal">Patrocinar o <strong>Bet ON Brasil: Tech Edition</strong> é posicionar sua empresa como parte da base que sustenta o mercado regulado.</p>
+    <div class="cta-row">
+      <a href="#contato" class="btn btn-p">Ver opções de cotas</a>
+      <span class="cotas-tag"><span class="pulse-dot"></span> Cotas limitadas</span>
+    </div>
+  </div>
+</section>
+
+<!-- OS DEBATES -->
+<section class="sec-deb" id="debates">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="pill">Os debates</span>
+      <h2 class="sf section-title">Os debates que <span class="gt">sustentam</span> o mercado regulado</h2>
+      <p class="section-sub">Conteúdo técnico, prático e estratégico. Cases reais, painéis, workshops e pitch de startups.</p>
+    </div>
+    <div class="deb-list">
+      <div class="deb reveal"><span class="deb-num">/01</span><h3>KYC, antifraude e PLD na prática</h3><p>Automatizar prevenção à lavagem de dinheiro com tecnologia que escala na operação regulada.</p></div>
+      <div class="deb reveal"><span class="deb-num">/02</span><h3>Arquitetura de pagamentos regulados</h3><p>Stack preparada para volume, conciliação e exigências do mercado regulado brasileiro.</p></div>
+      <div class="deb reveal"><span class="deb-num">/03</span><h3>Segurança da informação e dados</h3><p>Riscos cibernéticos, LGPD e infraestrutura mínima para operar com segurança.</p></div>
+      <div class="deb reveal"><span class="deb-num">/04</span><h3>Integrações plataformas × reguladores</h3><p>O fluxo real de dados conectando o ecossistema regulado de ponta a ponta.</p></div>
+      <div class="deb reveal" style="border-bottom:none"><span class="deb-num">/05</span><h3>Dados, CRM e retenção no iGaming</h3><p>Inteligência aplicada à retenção de jogadores e decisão operacional com dados.</p></div>
+      <div class="deb reveal" style="border-bottom:none"><span class="deb-num">/06</span><h3>Tecnologia na fiscalização e compliance</h3><p>Como a tech reformulou o trabalho do regulador e do compliance officer.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ÚLTIMA EDIÇÃO -->
+<section id="passado">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="pill">A última edição</span>
+      <h2 class="sf section-title">O que aconteceu na última edição em <span class="gt">Brasília</span></h2>
+      <p class="section-sub">O Bet ON Brasil reuniu autoridades, operadores e especialistas do setor para discutir o primeiro ano da regulamentação no país.</p>
+    </div>
+    <div class="p-stats">
+      <div class="p-stat reveal"><div class="p-num">+200</div><div class="p-lbl">participantes qualificados</div></div>
+      <div class="p-stat reveal"><div class="p-num">+40</div><div class="p-lbl">palestrantes e autoridades</div></div>
+      <div class="p-stat reveal"><div class="p-num">+30</div><div class="p-lbl">portais de cobertura</div></div>
+      <div class="p-stat reveal"><div class="p-num">100%</div><div class="p-lbl">mercado regulado</div></div>
+    </div>
+    <div class="logos-block reveal">
+      <h4 class="logos-title">Quem esteve presente</h4>
+      <div class="marquee">
+        <div class="logo-item">PAAG</div><div class="logo-item">SENACON</div><div class="logo-item">SPA/MF</div>
+        <div class="logo-item">CGU</div><div class="logo-item">ANJL</div><div class="logo-item">IBJR</div>
+        <div class="logo-item">ABRADIN</div><div class="logo-item">FEBRABAN</div>
+        <div class="logo-item">PAAG</div><div class="logo-item">SENACON</div><div class="logo-item">SPA/MF</div>
+        <div class="logo-item">CGU</div><div class="logo-item">ANJL</div><div class="logo-item">IBJR</div>
+      </div>
+    </div>
+    <div class="logos-block reveal" style="margin-top:28px">
+      <h4 class="logos-title">Cobertura de imprensa</h4>
+      <div class="marquee rev">
+        <div class="logo-item sm">iGaming Brazil</div><div class="logo-item sm">SBC News</div>
+        <div class="logo-item sm">GMB</div><div class="logo-item sm">Games Magazine</div>
+        <div class="logo-item sm">Poder360</div><div class="logo-item sm">Valor Econômico</div>
+        <div class="logo-item sm">Folha de SP</div>
+        <div class="logo-item sm">iGaming Brazil</div><div class="logo-item sm">SBC News</div>
+        <div class="logo-item sm">GMB</div><div class="logo-item sm">Games Magazine</div>
+      </div>
+    </div>
+    <div class="video-block reveal">
+      <div class="video-meta">
+        <span class="pill">Aftermovie · Brasília</span>
+        <h3 class="video-title">Última edição | Bet ON Brasil: 1 Ano de Regulação</h3>
+        <p class="video-sub">Bastidores do encontro que reuniu autoridades, operadores e especialistas para discutir o primeiro ano da regulamentação no Brasil.</p>
+      </div>
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed/E7hWeowXPTI?si=XMsG0ZxvSa_oWas8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRÓXIMOS EVENTOS -->
+<section id="agenda" style="background:var(--bg2)">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="pill">Agenda Bet ON Brasil</span>
+      <h2 class="sf section-title">O <span class="gt">Bet ON Brasil</span> não para.</h2>
+      <p class="section-sub">Próximas movimentações do ecossistema que estamos construindo.</p>
+    </div>
+    <div class="agenda-grid">
+      <article class="ev-card feat reveal">
+        <div class="ev-tag">PRÓXIMO · DESTAQUE</div>
+        <div class="ev-date"><div class="ed-day">20</div><div class="ed-mon">AGO<br><span>2025</span></div></div>
+        <h3>Bet ON Brasil: Tech Edition</h3>
+        <p class="ev-place">Cubo Itaú · São Paulo</p>
+        <p>O encontro técnico que mostra o que acontece por dentro da operação regulada do iGaming.</p>
+        <a href="#contato" class="card-link">Garantir meu lugar →</a>
+      </article>
+      <article class="ev-card reveal">
+        <div class="ev-tag dim">LISBOA · SBC SUMMIT</div>
+        <div class="ev-date"><div class="ed-day">29</div><div class="ed-mon">SET<br><span>a 01/OUT</span></div></div>
+        <h3>Networking Lounge by Bet ON Brasil</h3>
+        <p class="ev-place">Lisboa · Portugal</p>
+        <p>Networking estratégico entre empresas brasileiras e players internacionais durante a SBC Summit.</p>
+        <a href="#contato" class="card-link">Tenho interesse →</a>
+      </article>
+      <article class="ev-card reveal">
+        <div class="ev-tag dim">2027</div>
+        <div class="ev-date"><div class="ed-day">18</div><div class="ed-mon">FEV<br><span>2027</span></div></div>
+        <h3>Bet ON Brasil — Brasília</h3>
+        <p class="ev-place">Brasília · Distrito Federal</p>
+        <p>A próxima edição oficial do evento que conecta o mercado regulado nacional. Confirmações em breve.</p>
+        <a href="#contato" class="card-link">Quero ser avisado →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCO FINAL + FORM -->
+<section class="sec-final" id="contato">
+  <div class="container">
+    <div class="final-grid">
+      <div class="reveal">
+        <span class="pill">Patrocínio · Inscrição · Imprensa</span>
+        <h2 class="sf section-title">Sua marca presente<br>onde o mercado é <span class="gt">construído</span></h2>
+        <p class="lead">O <strong>Tech Edition</strong> reúne em um único dia quem decide, opera e regula a infraestrutura do iGaming brasileiro.</p>
+        <ul class="check-list">
+          <li>Cotas de patrocínio com espaço de fala em microfórum</li>
+          <li>Branding e ativações no evento</li>
+          <li>Modelo de referral agreement disponível</li>
+          <li>Inscrição de C-Levels, Diretores e Heads</li>
+        </ul>
+        <div class="contact-meta">
+          <div><span>Local</span><strong>Cubo Itaú · São Paulo</strong></div>
+          <div><span>Data</span><strong>20 de Agosto</strong></div>
+          <div><span>Capacidade</span><strong>150–200 decisores</strong></div>
+        </div>
+      </div>
+      <form class="final-form reveal" id="leadForm" novalidate="">
+        <h3 class="form-title">Fale com a nossa equipe</h3>
+        <div class="form-row"><label><span>Nome completo *</span><input type="text" name="nome" required placeholder="Seu nome"></label></div>
+        <div class="form-row"><label><span>Empresa / Marca</span><input type="text" name="empresa" placeholder="Nome da empresa"></label></div>
+        <div class="form-row two">
+          <label><span>E-mail corporativo *</span><input type="email" name="email" required placeholder="seu@email.com"></label>
+          <label><span>WhatsApp</span><input type="tel" name="telefone" placeholder="+55 11 9 0000-0000"></label>
+        </div>
+        <div class="form-row">
+          <label><span>Interesse</span>
+            <select name="interesse">
+              <option value="participar">Quero participar do evento</option>
+              <option value="patrocinio">Quero patrocinar</option>
+              <option value="palestrante">Quero ser palestrante</option>
+              <option value="imprensa">Imprensa / mídia</option>
+              <option value="outros">Outros</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-row">
+          <label><span>Sobre qual evento quer receber informações?</span>
+            <select name="evento_interesse">
+              <option value="">Selecione um evento</option>
+              <option value="tech_edition">Bet ON Brasil: Tech Edition — 20 Ago · São Paulo</option>
+              <option value="sbc_lisboa">Networking Lounge by Bet ON Brasil — 29 Set · Lisboa</option>
+              <option value="brasilia_2027">Bet ON Brasil — Brasília · Fev 2027</option>
+              <option value="todos">Todos os eventos</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-lgpd">
+          <label class="check-label"><input type="checkbox" name="email_consent" id="emailConsent"><span>Quero receber informações e condições especiais sobre o evento via e-mail</span></label>
+          <label class="check-label"><input type="checkbox" name="info" checked><span>Concordo em compartilhar meus dados para contato sobre o evento, conforme a <strong>LGPD</strong> (Lei 13.709/2018). Meus dados não serão compartilhados com terceiros sem consentimento.</span></label>
+        </div>
+        <button type="submit" class="btn btn-p btn-block">Quero receber informações <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+        <p id="formOk" style="display:none;text-align:center;color:var(--acc);font-size:14px;margin-top:16px;padding:12px;background:rgba(0,224,199,.08);border-radius:10px;border:1px solid rgba(0,224,199,.22)">✓ Obrigado! Em breve nossa equipe entrará em contato.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="#hero" class="logo" aria-label="Bet ON Brasil">
+        <img src="assets/images/4c895d63-4923-4404-8cf2-2103690971c5.png" alt="Bet ON Brasil" class="logo-img">
+        <span class="logo-tag">Tech Edition</span>
+      </a>
+      <p>O que sustenta tecnicamente as operações reguladas no Brasil. Uma realização <strong>Paag</strong>.</p>
+    </div>
+    <div class="footer-cols">
+      <div><h5>Evento</h5><a href="#momento">O novo momento</a><a href="#objetivos">Objetivos</a><a href="#debates">Os debates</a><a href="#passado">Última edição</a></div>
+      <div><h5>Participação</h5><a href="#publico">Quem encontrar</a><a href="#patrocinio">Patrocínio</a><a href="#contato">Inscrição</a></div>
+      <div><h5>Realização</h5><a href="#">Paag</a><a href="#agenda">Próximos eventos</a><a href="#contato">Imprensa</a></div>
+    </div>
+  </div>
+  <div class="container footer-bot">
+    <span>© <span id="yr"></span> Bet ON Brasil · Tech Edition · Realização Paag</span>
+    <div class="socials">
+      <a href="#" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14M8.34 18v-8H5.67v8h2.67M7 8.93a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1M19 18v-4.74c0-2.42-1.31-3.55-3.06-3.55-1.41 0-2.04.78-2.4 1.32V10h-2.67v8h2.67v-4.43c0-.42.03-.84.15-1.14.34-.83 1.1-1.7 2.39-1.7 1.69 0 2.04 1.27 2.04 2.96V18H19Z"></path></svg></a>
+      <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8"></rect><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor"></circle></svg></a>
+    </div>
+  </div>
+</footer>
+
+  <script src="js/script.js"></script>
+</body></html>
