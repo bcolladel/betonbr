@@ -562,19 +562,19 @@ function App() {
         
         <nav style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", justifyContent: "space-between", gap: isMobile ? 24 : 0, padding: isMobile ? "14px 20px" : "18px 48px", maxWidth: 1600, margin: "0 auto", gap: isMobile ? 0 : 24 }}>
           {/* Logo — always visible, centered on mobile */}
-          <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0, flex: isMobile ? 1 : "unset", justifyContent: isMobile ? "center" : "flex-start" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0, flex: isMobile ? 1 : "unset", justifyContent: "center" }}>
             {logoImg(isMobile ? 22 : 26)}
             <span style={{ fontSize: 9, letterSpacing: "0.16em", textTransform: "uppercase", color: T.teal, padding: "3px 8px", border: "1px solid rgba(73,253,227,0.22)", borderRadius: 999, fontFamily: MONO_FF, fontWeight: 500, whiteSpace: "nowrap", flexShrink: 0 }}>Tech Edition</span>
           </div>
           {/* Desktop links */}
           {!isMobile && <div style={{ display: "flex", gap: 28, alignItems: "center", flex: 1, justifyContent: "center" }}>
             {["Momento","Objetivos","Público","Debates"].map(l => (
-              <a key={l} href={`#${l.toLowerCase()}`} style={{ color: T.muted, fontSize: 11.5, fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase", fontFamily: HEAD_FF, textDecoration: "none", transition: "color 0.2s", whiteSpace: "nowrap" }}
+              <a key={l} href={l === "Momento" ? "#momento" : `#${l.toLowerCase()}`} style={{ color: T.muted, fontSize: 11.5, fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase", fontFamily: HEAD_FF, textDecoration: "none", transition: "color 0.2s", whiteSpace: "nowrap" }}
                 onMouseEnter={e => e.target.style.color = T.teal} onMouseLeave={e => e.target.style.color = T.muted}>{l}</a>
             ))}
           </div>}
           {/* Desktop CTA */}
-          {!isMobile && <motion.a href="#contato" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} style={{ background: T.grad, color: T.surface, padding: "10px 22px", borderRadius: 999, fontSize: 12, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none", whiteSpace: "nowrap", flexShrink: 0 }}>
+          {!isMobile && <motion.a href="https://lu.ma/p8ejs7fm" target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} style={{ background: T.grad, color: T.surface, padding: "10px 22px", borderRadius: 999, fontSize: 12, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none", whiteSpace: "nowrap", flexShrink: 0 }}>
             Ingressos
           </motion.a>}
         </nav>
@@ -597,15 +597,15 @@ function App() {
           <div style={{ maxWidth: 1600, width: "100%", margin: "0 auto", display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "center" : "flex-end", gap: isMobile ? 32 : 48 }}>
             <div style={{ flex: isMobile ? "unset" : "0 0 74%", width: "100%", textAlign: isMobile ? "center" : "left" }}>
               <Reveal delay={0.1}>
-                <div style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "8px 16px", borderRadius: 999, background: "rgba(73,253,227,0.07)", border: "1px solid rgba(73,253,227,0.2)", marginBottom: 36, fontSize: 13, color: T.teal, fontFamily: BODY_FF }}>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "8px 16px", borderRadius: 999, background: "rgba(73,253,227,0.07)", border: "1px solid rgba(73,253,227,0.2)", marginBottom: isMobile ? 24 : 36, fontSize: isMobile ? 12 : 13, color: T.teal, fontFamily: BODY_FF }}>
                   <span style={{ width: 7, height: 7, background: T.teal, borderRadius: "50%", boxShadow: "0 0 12px rgba(73,253,227,0.7)", animation: "pulse 2s infinite", flexShrink: 0 }} />
                   20 de Agosto · Cubo Itaú · São Paulo
                 </div>
               </Reveal>
-              <Reveal delay={0.18}><h1 style={{ fontFamily: HEAD_FF, fontSize: "clamp(3.2rem,8.5vw,8rem)", fontWeight: 700, lineHeight: 0.95, letterSpacing: "-0.04em", margin: 0, marginBottom: 8 }}>TECH</h1></Reveal>
-              <Reveal delay={0.26}><h1 style={{ fontFamily: HEAD_FF, fontSize: "clamp(3.2rem,8.5vw,8rem)", fontWeight: 700, lineHeight: 0.95, letterSpacing: "-0.04em", margin: 0, marginBottom: 36, background: T.grad, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>EDITION</h1></Reveal>
-              <div style={{ width: "100%", height: 1, background: "linear-gradient(90deg,rgba(73,253,227,0.3),transparent)", marginBottom: 28 }} />
-              <Reveal delay={0.32}><p style={{ fontSize: 16, lineHeight: 1.7, color: T.muted, maxWidth: 680, marginBottom: 36, fontFamily: BODY_FF }}>Onde a tecnologia que sustenta o mercado regulamentado se encontra. Um encontro exclusivo entre empresas, especialistas e autoridades construindo a infraestrutura do iGaming no Brasil.</p></Reveal>
+              <Reveal delay={0.18}><h1 style={{ fontFamily: HEAD_FF, fontSize: isMobile ? "clamp(2.6rem,13vw,4rem)" : "clamp(3.2rem,8.5vw,8rem)", fontWeight: 700, lineHeight: 0.95, letterSpacing: "-0.04em", margin: 0, marginBottom: 8 }}>TECH</h1></Reveal>
+              <Reveal delay={0.26}><h1 style={{ fontFamily: HEAD_FF, fontSize: isMobile ? "clamp(2.6rem,13vw,4rem)" : "clamp(3.2rem,8.5vw,8rem)", fontWeight: 700, lineHeight: 0.95, letterSpacing: "-0.04em", margin: 0, marginBottom: isMobile ? 24 : 36, background: T.grad, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>EDITION</h1></Reveal>
+              <div style={{ width: "100%", height: 1, background: "linear-gradient(90deg,rgba(73,253,227,0.3),transparent)", marginBottom: isMobile ? 20 : 28 }} />
+              <Reveal delay={0.32}><p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.6, color: T.muted, maxWidth: isMobile ? "100%" : 680, marginBottom: isMobile ? 28 : 36, fontFamily: BODY_FF, textAlign: isMobile ? "center" : "left" }}>Onde a tecnologia que sustenta o mercado regulamentado se encontra. Um encontro exclusivo entre empresas, especialistas e autoridades construindo a infraestrutura do iGaming no Brasil.</p></Reveal>
               <Reveal delay={0.38}>
                 <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "center" : "flex-start", gap: 12, flexWrap: "wrap" }}>
                   <motion.a href="#contato" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
@@ -619,17 +619,20 @@ function App() {
                 </div>
               </Reveal>
             </div>
-            <div style={{ flex: "unset", width: "100%", borderLeft: isMobile ? "none" : "1px solid rgba(73,253,227,0.18)", borderTop: isMobile ? "1px solid rgba(255,255,255,0.07)" : "none", paddingLeft: isMobile ? 0 : 32, paddingTop: isMobile ? 24 : 0, paddingBottom: 12, display: "grid", gridTemplateColumns: isMobile ? "repeat(3,1fr)" : "1fr", gap: isMobile ? 0 : 32 }}>
+            <div style={{ flex: "unset", width: "100%", borderLeft: isMobile ? "none" : "1px solid rgba(73,253,227,0.18)", borderTop: isMobile ? "1px solid rgba(255,255,255,0.07)" : "none", paddingLeft: isMobile ? 0 : 32, paddingTop: isMobile ? 24 : 0, paddingBottom: 12 }}>
               <Reveal delay={0.45}>
                 <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(3,1fr)" : "1fr", gap: isMobile ? 0 : 32, width: "100%" }}>
                   {[
-                  { num: "150+", label: "C-Level Decision\nMakers" },
-                  { num: "100%", label: "Conteúdo\nTécnico" },
-                  { num: "1", label: "Dia de\nBastidores Reais" }].
+                  { num: "150+", label: "C-Level Decision
+Makers" },
+                  { num: "100%", label: "Conteúdo
+Técnico" },
+                  { num: "1", label: "Dia de
+Bastidores Reais" }].
                   map(({ num, label }) =>
-                  <div key={num}>
-                      <div style={{ fontFamily: HEAD_FF, fontSize: "clamp(2rem,3.5vw,3.2rem)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1, background: T.grad, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{num}</div>
-                      <div style={{ fontFamily: MONO_FF, fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: T.muted, marginTop: 8, whiteSpace: "pre-line" }}>{label}</div>
+                  <div key={num} style={{ padding: isMobile ? "16px 8px" : 0, borderRight: isMobile ? "1px solid rgba(255,255,255,0.07)" : "none", textAlign: isMobile ? "center" : "left" }}>
+                      <div style={{ fontFamily: HEAD_FF, fontSize: isMobile ? "clamp(1.4rem,7vw,1.8rem)" : "clamp(2rem,3.5vw,3.2rem)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1, background: T.grad, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{num}</div>
+                      <div style={{ fontFamily: MONO_FF, fontSize: isMobile ? 9 : 10, letterSpacing: isMobile ? "0.1em" : "0.2em", textTransform: "uppercase", color: T.muted, marginTop: isMobile ? 4 : 8, whiteSpace: "pre-line" }}>{label}</div>
                     </div>
                   )}
                 </div>
@@ -642,7 +645,7 @@ function App() {
         </section>
 
         {/* O MERCADO REGULOU */}
-        <section style={{ padding: isMobile ? "64px 20px" : "120px 64px", background: "linear-gradient(180deg, #0e1620 0%, #0e1620 35%, #111b28 100%)", position: "relative" }}>
+        <section id="momento" style={{ padding: isMobile ? "64px 20px" : "120px 64px", background: "linear-gradient(180deg, #0e1620 0%, #0e1620 35%, #111b28 100%)", position: "relative" }}>
           <div style={{ maxWidth: 1400, margin: "0 auto", display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: isMobile ? 40 : 80, alignItems: "center" }}>
             <div>
               <Reveal><Pill>O novo momento do mercado</Pill></Reveal>
