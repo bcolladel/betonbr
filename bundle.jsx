@@ -465,18 +465,10 @@ const FADE_R = (bg) => ({ position: "absolute", right: 0, top: 0, bottom: 0, wid
 
 function App() {
   const [navScrolled, setNavScrolled] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
-  const [menuOpen, setMenuOpen] = useState(false);
-
   useEffect(() => {
-    const fnScroll = () => setNavScrolled(window.scrollY > 40);
-    const fnResize = () => setIsMobile(window.innerWidth <= 600);
-    window.addEventListener("scroll", fnScroll, { passive: true });
-    window.addEventListener("resize", fnResize, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", fnScroll);
-      window.removeEventListener("resize", fnResize);
-    };
+    const fn = () => setNavScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
   }, []);
 
   // Lead form submit handler — HubSpot + Formspree
@@ -560,30 +552,30 @@ function App() {
           borderBottom: "1px solid rgba(255,255,255,0)"
         }}>
         
-        <nav style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: isMobile ? "center" : "space-between", gap: isMobile ? 0 : 24, padding: isMobile ? "14px 20px" : "18px 48px", maxWidth: 1600, margin: "0 auto" }}>
-          {/* Logo — always visible, centered on mobile */}
-          <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0, flex: isMobile ? 1 : "unset", justifyContent: "center" }}>
-            {logoImg(isMobile ? 22 : 26)}
-            <span style={{ fontSize: 9, letterSpacing: "0.16em", textTransform: "uppercase", color: T.teal, padding: "3px 8px", border: "1px solid rgba(73,253,227,0.22)", borderRadius: 999, fontFamily: MONO_FF, fontWeight: 500, whiteSpace: "nowrap", flexShrink: 0 }}>Tech Edition</span>
+        <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 48px", maxWidth: 1600, margin: "0 auto", gap: 24 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
+            {logoImg(28)}
+            <span style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: T.teal, padding: "3px 9px", border: "1px solid rgba(73,253,227,0.22)", borderRadius: 999, fontFamily: MONO_FF, fontWeight: 500, whiteSpace: "nowrap", flexShrink: 0 }}>Tech Edition</span>
           </div>
-          {/* Desktop links */}
-          {!isMobile && <div style={{ display: "flex", gap: 28, alignItems: "center", flex: 1, justifyContent: "center" }}>
-            {["Momento","Objetivos","Público","Debates"].map(l => (
-              <a key={l} href={l === "Momento" ? "#momento" : ("#" + l.toLowerCase())} style={{ color: T.muted, fontSize: 11.5, fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase", fontFamily: HEAD_FF, textDecoration: "none", transition: "color 0.2s", whiteSpace: "nowrap" }}
-                onMouseEnter={e => e.target.style.color = T.teal} onMouseLeave={e => e.target.style.color = T.muted}>{l}</a>
-            ))}
-          </div>}
-          {/* Desktop CTA */}
-          {!isMobile && <motion.a href="https://lu.ma/p8ejs7fm" target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} style={{ background: T.grad, color: T.surface, padding: "10px 22px", borderRadius: 999, fontSize: 12, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none", whiteSpace: "nowrap", flexShrink: 0 }}>
-            Ingressos
-          </motion.a>}
+          <div style={{ display: "flex", gap: 28, alignItems: "center", flex: 1, justifyContent: "center" }}>
+            {["Momento", "Objetivos", "Público", "Debates"].map((l) =>
+            <a key={l} href={l === "Momento" ? "#momento" : ("#" + l.toLowerCase())}
+            style={{ color: T.muted, fontSize: 11.5, fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase", fontFamily: HEAD_FF, textDecoration: "none", transition: "color 0.2s", whiteSpace: "nowrap" }}
+            onMouseEnter={(e) => e.target.style.color = T.teal}
+            onMouseLeave={(e) => e.target.style.color = T.muted}>
+              {l}</a>
+            )}
+          </div>
+          <motion.a href="https://lu.ma/p8ejs7fm" target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+          style={{ background: T.grad, color: T.surface, padding: "10px 22px", borderRadius: 999, fontSize: 12, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none", whiteSpace: "nowrap", flexShrink: 0, fontFamily: HEAD_FF }}>
+            Ingressos</motion.a>
         </nav>
       </motion.header>
 
       <main>
 
         {/* HERO */}
-        <section style={{ minHeight: "100svh", display: "flex", alignItems: "center", padding: isMobile ? "100px 20px 52px" : "120px 64px 80px", position: "relative", overflow: "hidden" }}>
+        <section style={{ minHeight: "100vh", display: "flex", alignItems: "center", padding: "120px 64px 80px", position: "relative", overflow: "hidden" }}>
           <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.06, pointerEvents: "none" }} xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
@@ -594,45 +586,42 @@ function App() {
           </svg>
           <div style={{ position: "absolute", width: 700, height: 700, borderRadius: "50%", background: "radial-gradient(circle,rgba(73,253,227,0.08),transparent 70%)", top: -200, left: -200, pointerEvents: "none" }} />
           <div style={{ position: "absolute", width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle,rgba(139,92,246,0.08),transparent 70%)", bottom: -100, right: -100, pointerEvents: "none" }} />
-          <div style={{ maxWidth: 1600, width: "100%", margin: "0 auto", display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "center" : "flex-end", gap: isMobile ? 32 : 48 }}>
-            <div style={{ flex: isMobile ? "unset" : "0 0 74%", width: "100%", textAlign: isMobile ? "center" : "left" }}>
+          <div style={{ maxWidth: 1600, width: "100%", margin: "0 auto", display: "flex", alignItems: "flex-end", gap: 48 }}>
+            <div style={{ flex: "0 0 74%" }}>
               <Reveal delay={0.1}>
-                <div style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "8px 16px", borderRadius: 999, background: "rgba(73,253,227,0.07)", border: "1px solid rgba(73,253,227,0.2)", marginBottom: isMobile ? 24 : 36, fontSize: isMobile ? 12 : 13, color: T.teal, fontFamily: BODY_FF }}>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "8px 16px", borderRadius: 999, background: "rgba(73,253,227,0.07)", border: "1px solid rgba(73,253,227,0.2)", marginBottom: 36, fontSize: 13, color: T.teal, fontFamily: BODY_FF }}>
                   <span style={{ width: 7, height: 7, background: T.teal, borderRadius: "50%", boxShadow: "0 0 12px rgba(73,253,227,0.7)", animation: "pulse 2s infinite", flexShrink: 0 }} />
                   20 de Agosto · Cubo Itaú · São Paulo
                 </div>
               </Reveal>
-              <Reveal delay={0.18}><h1 style={{ fontFamily: HEAD_FF, fontSize: isMobile ? "clamp(2.6rem,13vw,4rem)" : "clamp(3.2rem,8.5vw,8rem)", fontWeight: 700, lineHeight: 0.95, letterSpacing: "-0.04em", margin: 0, marginBottom: 8 }}>TECH</h1></Reveal>
-              <Reveal delay={0.26}><h1 style={{ fontFamily: HEAD_FF, fontSize: isMobile ? "clamp(2.6rem,13vw,4rem)" : "clamp(3.2rem,8.5vw,8rem)", fontWeight: 700, lineHeight: 0.95, letterSpacing: "-0.04em", margin: 0, marginBottom: isMobile ? 24 : 36, background: T.grad, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>EDITION</h1></Reveal>
-              <div style={{ width: "100%", height: 1, background: "linear-gradient(90deg,rgba(73,253,227,0.3),transparent)", marginBottom: isMobile ? 20 : 28 }} />
-              <Reveal delay={0.32}><p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.6, color: T.muted, maxWidth: isMobile ? "100%" : 680, marginBottom: isMobile ? 28 : 36, fontFamily: BODY_FF, textAlign: isMobile ? "center" : "left" }}>Onde a tecnologia que sustenta o mercado regulamentado se encontra. Um encontro exclusivo entre empresas, especialistas e autoridades construindo a infraestrutura do iGaming no Brasil.</p></Reveal>
+              <Reveal delay={0.18}><h1 style={{ fontFamily: HEAD_FF, fontSize: "clamp(3.2rem,8.5vw,8rem)", fontWeight: 700, lineHeight: 0.95, letterSpacing: "-0.04em", margin: 0, marginBottom: 8 }}>TECH</h1></Reveal>
+              <Reveal delay={0.26}><h1 style={{ fontFamily: HEAD_FF, fontSize: "clamp(3.2rem,8.5vw,8rem)", fontWeight: 700, lineHeight: 0.95, letterSpacing: "-0.04em", margin: 0, marginBottom: 36, background: T.grad, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>EDITION</h1></Reveal>
+              <div style={{ width: "100%", height: 1, background: "linear-gradient(90deg,rgba(73,253,227,0.3),transparent)", marginBottom: 28 }} />
+              <Reveal delay={0.32}><p style={{ fontSize: 16, lineHeight: 1.7, color: T.muted, maxWidth: 680, marginBottom: 36, fontFamily: BODY_FF }}>Onde a tecnologia que sustenta o mercado regulamentado se encontra. Um encontro exclusivo entre empresas, especialistas e autoridades construindo a infraestrutura do iGaming no Brasil.</p></Reveal>
               <Reveal delay={0.38}>
-                <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "center" : "flex-start", gap: 12, flexWrap: "wrap" }}>
+                <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
                   <motion.a href="#contato" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
                   style={{ display: "inline-flex", alignItems: "center", gap: 10, background: T.grad, color: T.surface, padding: "14px 28px", borderRadius: 999, fontSize: 14, fontWeight: 700, textDecoration: "none", fontFamily: HEAD_FF }}>
                     Quero Participar <ArrowRight size={16} />
                   </motion.a>
                   <motion.a href="#patrocinio" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                  style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 10, background: "transparent", color: T.text, padding: "14px 28px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.14)", fontSize: 14, fontWeight: 500, textDecoration: "none", fontFamily: BODY_FF, width: isMobile ? "82%" : "auto" }}>
+                  style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "transparent", color: T.text, padding: "14px 28px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.14)", fontSize: 14, fontWeight: 500, textDecoration: "none", fontFamily: BODY_FF }}>
                     Ver Patrocínios
                   </motion.a>
                 </div>
               </Reveal>
             </div>
-            <div style={{ flex: "unset", width: "100%", borderLeft: isMobile ? "none" : "1px solid rgba(73,253,227,0.18)", borderTop: isMobile ? "1px solid rgba(255,255,255,0.07)" : "none", paddingLeft: isMobile ? 0 : 32, paddingTop: isMobile ? 24 : 0, paddingBottom: 12 }}>
+            <div style={{ flex: "0 0 22%", borderLeft: "1px solid rgba(73,253,227,0.18)", paddingLeft: 32, paddingBottom: 12 }}>
               <Reveal delay={0.45}>
-                <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(3,1fr)" : "1fr", gap: isMobile ? 0 : 32, width: "100%" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
                   {[
-                  { num: "150+", label: "C-Level Decision
-Makers" },
-                  { num: "100%", label: "Conteúdo
-Técnico" },
-                  { num: "1", label: "Dia de
-Bastidores Reais" }].
+                  { num: "150+", label: "C-Level Decision\nMakers" },
+                  { num: "100%", label: "Conteúdo\nTécnico" },
+                  { num: "1", label: "Dia de\nBastidores Reais" }].
                   map(({ num, label }) =>
-                  <div key={num} style={{ padding: isMobile ? "16px 8px" : 0, borderRight: isMobile ? "1px solid rgba(255,255,255,0.07)" : "none", textAlign: isMobile ? "center" : "left" }}>
-                      <div style={{ fontFamily: HEAD_FF, fontSize: isMobile ? "clamp(1.4rem,7vw,1.8rem)" : "clamp(2rem,3.5vw,3.2rem)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1, background: T.grad, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{num}</div>
-                      <div style={{ fontFamily: MONO_FF, fontSize: isMobile ? 9 : 10, letterSpacing: isMobile ? "0.1em" : "0.2em", textTransform: "uppercase", color: T.muted, marginTop: isMobile ? 4 : 8, whiteSpace: "pre-line" }}>{label}</div>
+                  <div key={num}>
+                      <div style={{ fontFamily: HEAD_FF, fontSize: "clamp(2rem,3.5vw,3.2rem)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1, background: T.grad, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{num}</div>
+                      <div style={{ fontFamily: MONO_FF, fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: T.muted, marginTop: 8, whiteSpace: "pre-line" }}>{label}</div>
                     </div>
                   )}
                 </div>
@@ -645,8 +634,8 @@ Bastidores Reais" }].
         </section>
 
         {/* O MERCADO REGULOU */}
-        <section id="momento" style={{ padding: isMobile ? "64px 20px" : "120px 64px", background: "linear-gradient(180deg, #0e1620 0%, #0e1620 35%, #111b28 100%)", position: "relative" }}>
-          <div style={{ maxWidth: 1400, margin: "0 auto", display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: isMobile ? 40 : 80, alignItems: "center" }}>
+        <section id="momento" style={{ padding: "120px 64px", background: "linear-gradient(180deg, #0e1620 0%, #0e1620 35%, #111b28 100%)", position: "relative" }}>
+          <div style={{ maxWidth: 1400, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
             <div>
               <Reveal><Pill>O novo momento do mercado</Pill></Reveal>
               <Reveal delay={0.1}><h2 style={{ fontFamily: HEAD_FF, fontSize: "clamp(2.8rem,6vw,5.5rem)", fontWeight: 700, letterSpacing: "-0.04em", lineHeight: 0.95, marginBottom: 8 }}>O mercado</h2></Reveal>
@@ -692,11 +681,11 @@ Bastidores Reais" }].
         </section>
 
         {/* OBJETIVOS */}
-        <section id="objetivos" style={{ padding: isMobile ? "64px 20px" : "120px 64px", background: T.surface2 }}>
-          <div style={{ maxWidth: 1400, margin: "0 auto", width: "100%" }}>
+        <section id="objetivos" style={{ padding: "120px 64px", background: T.surface2 }}>
+          <div style={{ maxWidth: 1400, margin: "0 auto" }}>
             <Reveal><Pill>Objetivos do evento</Pill></Reveal>
-            <Reveal delay={0.1}><h2 style={{ fontFamily: HEAD_FF, fontSize: "clamp(2rem,4vw,3.2rem)", fontWeight: 700, letterSpacing: "-0.03em", marginBottom: isMobile ? 32 : 64, lineHeight: 1.1, textAlign: isMobile ? "center" : "left" }}>Por que esta edição é um <GradText>marco</GradText></h2></Reveal>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4,1fr)", gap: isMobile ? 12 : 16 }}>
+            <Reveal delay={0.1}><h2 style={{ fontFamily: HEAD_FF, fontSize: "clamp(2rem,4vw,3.2rem)", fontWeight: 700, letterSpacing: "-0.03em", marginBottom: 64, lineHeight: 1.1 }}>Por que esta edição é um <GradText>marco</GradText></h2></Reveal>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16 }}>
               {[
               { n: "01", title: "Infraestrutura tecnológica", desc: "Debater o que torna a operação regulada possível na prática.", icon: <Terminal size={22} />, h: 420, offset: 0 },
               { n: "02", title: "Quem constrói × Quem regula", desc: "Conectar operadores e reguladores em debate direto e aplicável.", icon: <Scale size={22} />, h: 480, offset: -40 },
@@ -704,7 +693,7 @@ Bastidores Reais" }].
               { n: "04", title: "Networking qualificado", desc: "Áreas técnicas, jurídicas, operacionais e estratégicas reunidas.", icon: <Users size={22} />, h: 460, offset: -16 }].
               map(({ n, title, desc, icon, h, offset }, i) =>
               <Reveal key={n} delay={i * 0.08}>
-                  <Glass style={{ height: isMobile ? "auto" : h, marginTop: isMobile ? 0 : offset, padding: 32, display: "flex", flexDirection: "column", justifyContent: "space-between", overflow: "hidden", position: "relative" }}>
+                  <Glass style={{ height: h, marginTop: offset, padding: 32, display: "flex", flexDirection: "column", justifyContent: "space-between", overflow: "hidden", position: "relative" }}>
                     <span style={{ position: "absolute", bottom: -20, right: 16, fontFamily: HEAD_FF, fontSize: 120, fontWeight: 700, letterSpacing: "-0.04em", color: "rgba(73,253,227,0.04)", lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>{n}</span>
                     <div>
                       <div style={{ color: T.teal, marginBottom: 20 }}>{icon}</div>
@@ -720,12 +709,12 @@ Bastidores Reais" }].
         </section>
 
         {/* PÚBLICO */}
-        <section id="público" style={{ padding: isMobile ? "64px 20px" : "120px 64px" }}>
-          <div style={{ maxWidth: 1400, margin: "0 auto", width: "100%" }}>
+        <section id="público" style={{ padding: "120px 64px" }}>
+          <div style={{ maxWidth: 1400, margin: "0 auto" }}>
             <Reveal><Pill>Quem você vai encontrar</Pill></Reveal>
             <Reveal delay={0.1}><h2 style={{ fontFamily: HEAD_FF, fontSize: "clamp(2rem,4vw,3.2rem)", fontWeight: 700, letterSpacing: "-0.03em", marginBottom: 16, lineHeight: 1.1 }}>Quem <GradText>constrói o mercado</GradText><br />por trás das marcas</h2></Reveal>
             <Reveal delay={0.15}><p style={{ color: T.muted, fontSize: 16, marginBottom: 56, maxWidth: 600, fontFamily: BODY_FF }}>O evento é voltado para profissionais e empresas que sustentam o ecossistema do iGaming regulado.</p></Reveal>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4,1fr)", gap: 12, alignItems: "stretch" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, alignItems: "stretch" }}>
               {[
               { icon: <Fingerprint size={20} />, label: "KYC, Antifraude e Compliance" },
               { icon: <CreditCard size={20} />, label: "Meios de Pagamento" },
@@ -756,11 +745,11 @@ Bastidores Reais" }].
         </section>
 
         {/* PATROCÍNIO */}
-        <section id="patrocinio" style={{ padding: isMobile ? "64px 20px" : "120px 64px", background: T.surface2 }}>
-          <div style={{ maxWidth: 1400, margin: "0 auto", width: "100%" }}>
+        <section id="patrocinio" style={{ padding: "120px 64px", background: T.surface2 }}>
+          <div style={{ maxWidth: 1400, margin: "0 auto" }}>
             <Reveal><Pill>Por que patrocinar</Pill></Reveal>
             <Reveal delay={0.1}><h2 style={{ fontFamily: HEAD_FF, fontSize: "clamp(2rem,4vw,3.2rem)", fontWeight: 700, letterSpacing: "-0.03em", marginBottom: 56, lineHeight: 1.1 }}>Associe sua marca à <GradText>infraestrutura</GradText><br />do mercado regulado</h2></Reveal>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3,1fr)", gap: isMobile ? 12 : 16, marginBottom: isMobile ? 12 : 16, alignItems: "stretch" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, marginBottom: 16, alignItems: "stretch" }}>
               {[
               { icon: <Award size={28} />, title: "Autoridade Técnica", desc: "Sua marca conectada ao debate mais estratégico: tecnologia, dados, segurança e compliance no iGaming." },
               { icon: <Users size={28} />, title: "Networking de Alto Nível", desc: "Relacionamento direto com C-levels, Heads e decisores técnicos e operacionais do mercado regulado." },
@@ -794,8 +783,8 @@ Bastidores Reais" }].
         </section>
 
         {/* DEBATES */}
-        <section id="debates" style={{ padding: isMobile ? "64px 20px" : "120px 64px" }}>
-          <div style={{ maxWidth: 1400, margin: "0 auto", width: "100%" }}>
+        <section id="debates" style={{ padding: "120px 64px" }}>
+          <div style={{ maxWidth: 1400, margin: "0 auto" }}>
             <Reveal><Pill>Os debates</Pill></Reveal>
             <Reveal delay={0.1}><h2 style={{ fontFamily: HEAD_FF, fontSize: "clamp(2rem,4vw,3.2rem)", fontWeight: 700, letterSpacing: "-0.03em", marginBottom: 16, lineHeight: 1.1 }}>Os debates que <GradText>sustentam</GradText><br />o mercado regulado</h2></Reveal>
             <Reveal delay={0.15}><p style={{ color: T.muted, fontSize: 16, marginBottom: 56, maxWidth: 600, fontFamily: BODY_FF }}>Conteúdo técnico, prático e estratégico. Cases reais, painéis, workshops e pitch de startups.</p></Reveal>
@@ -810,7 +799,7 @@ Bastidores Reais" }].
               map(({ n, title, desc }, i) =>
               <Reveal key={n} delay={i * 0.06}>
                   <motion.div whileHover={{ backgroundColor: "rgba(73,253,227,0.03)", x: 6 }} transition={{ duration: 0.2 }}
-                style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "80px 1fr 1fr", gap: isMobile ? 8 : 32, padding: isMobile ? "20px 0" : "28px 0", borderBottom: `1px solid ${T.border}`, alignItems: "start" }}>
+                style={{ display: "grid", gridTemplateColumns: "80px 1fr 1fr", gap: 32, padding: "28px 0", borderBottom: `1px solid ${T.border}`, alignItems: "start" }}>
                     <span style={{ fontFamily: MONO_FF, fontSize: 13, color: T.teal, fontWeight: 500, paddingTop: 2 }}>{n}</span>
                     <h3 style={{ fontFamily: HEAD_FF, fontSize: 18, fontWeight: 600, letterSpacing: "-0.02em", lineHeight: 1.25 }}>{title}</h3>
                     <p style={{ color: T.muted, fontSize: 14, lineHeight: 1.65, fontFamily: BODY_FF }}>{desc}</p>
@@ -822,8 +811,8 @@ Bastidores Reais" }].
         </section>
 
         {/* BRASÍLIA — BIG NUMBERS + MARQUEES */}
-        <section id="passado" style={{ padding: isMobile ? "64px 20px" : "120px 64px", background: T.surface2, overflow: "hidden" }}>
-          <div style={{ maxWidth: 1400, margin: "0 auto", width: "100%" }}>
+        <section id="passado" style={{ padding: "120px 64px", background: T.surface2, overflow: "hidden" }}>
+          <div style={{ maxWidth: 1400, margin: "0 auto" }}>
             <Reveal><div style={{ textAlign: "center" }}><Pill>A última edição</Pill></div></Reveal>
             <Reveal delay={0.1}><h2 style={{ fontFamily: HEAD_FF, fontSize: "clamp(2rem,4vw,3.2rem)", fontWeight: 700, letterSpacing: "-0.03em", marginBottom: 16, lineHeight: 1.1, textAlign: "center" }}>O que aconteceu na última edição<br />em <GradText>Brasília</GradText></h2></Reveal>
             <Reveal delay={0.15}><p style={{ color: T.muted, fontSize: 16, lineHeight: 1.65, textAlign: "center", maxWidth: 640, margin: "0 auto 64px", fontFamily: BODY_FF }}>O Bet ON Brasil reuniu autoridades, operadores e especialistas do setor para discutir o primeiro ano da regulamentação no país.</p></Reveal>
@@ -852,7 +841,7 @@ Bastidores Reais" }].
                   <div style={FADE_L(T.surface2)} /><div style={FADE_R(T.surface2)} />
                   <div style={{ display: "flex", gap: 56, width: "max-content", animation: "marqueeL 56s linear infinite" }}>
                     {["PAAG", "SENACON", "SPA/MF", "CGU", "ANJL", "IBJR", "ABRADIN", "FEBRABAN", "Cactus", "Betano", "KTO", "Bet Nacional", "Bet365", "GameWiz", "Bis SIGMA", "SBC", "Estrela Bet", "PAAG", "SENACON", "SPA/MF", "CGU", "ANJL", "IBJR", "ABRADIN", "FEBRABAN", "Cactus", "Betano", "KTO", "Bet Nacional", "Bet365", "GameWiz", "Bis SIGMA", "SBC", "Estrela Bet"].map((org, i) =>
-                    <span key={i} style={{ fontFamily: HEAD_FF, fontSize: isMobile ? 16 : 22, fontWeight: 600, color: "rgba(219,227,241,0.22)", letterSpacing: "0.05em", whiteSpace: "nowrap", textTransform: "uppercase" }}>{org}</span>
+                    <span key={i} style={{ fontFamily: HEAD_FF, fontSize: 22, fontWeight: 600, color: "rgba(219,227,241,0.22)", letterSpacing: "0.05em", whiteSpace: "nowrap", textTransform: "uppercase" }}>{org}</span>
                     )}
                   </div>
                 </div>
@@ -866,7 +855,7 @@ Bastidores Reais" }].
                   <div style={FADE_L(T.surface2)} /><div style={FADE_R(T.surface2)} />
                   <div style={{ display: "flex", gap: 56, width: "max-content", animation: "marqueeR 28s linear infinite" }}>
                     {["iGaming Brazil", "SBC News", "GMB", "Games Magazine", "Poder360", "Valor Econômico", "Folha de SP", "iGaming Brazil", "SBC News", "GMB", "Games Magazine", "Poder360", "Valor Econômico", "Folha de SP"].map((press, i) =>
-                    <span key={i} style={{ fontFamily: HEAD_FF, fontSize: isMobile ? 14 : 18, fontWeight: 500, color: "rgba(219,227,241,0.2)", letterSpacing: "0.03em", whiteSpace: "nowrap" }}>{press}</span>
+                    <span key={i} style={{ fontFamily: HEAD_FF, fontSize: 18, fontWeight: 500, color: "rgba(219,227,241,0.2)", letterSpacing: "0.03em", whiteSpace: "nowrap" }}>{press}</span>
                     )}
                   </div>
                 </div>
@@ -876,7 +865,7 @@ Bastidores Reais" }].
         </section>
 
         {/* AFTERMOVIE */}
-        <section style={{ padding: isMobile ? "64px 20px" : "120px 64px" }}>
+        <section style={{ padding: "120px 64px" }}>
           <div style={{ maxWidth: 1400, margin: "0 auto", display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.15fr)", gap: 64, alignItems: "center" }}>
             <div>
               <Reveal><Pill>Aftermovie · Brasília</Pill></Reveal>
@@ -908,8 +897,8 @@ Bastidores Reais" }].
         </section>
 
         {/* AGENDA */}
-        <section id="agenda" style={{ padding: isMobile ? "64px 20px" : "120px 64px", background: T.surface2 }}>
-          <div style={{ maxWidth: 1400, margin: "0 auto", width: "100%" }}>
+        <section id="agenda" style={{ padding: "120px 64px", background: T.surface2 }}>
+          <div style={{ maxWidth: 1400, margin: "0 auto" }}>
             <Reveal><Pill>Agenda Bet ON Brasil</Pill></Reveal>
             <Reveal delay={0.1}><h2 style={{ fontFamily: HEAD_FF, fontSize: "clamp(2rem,4vw,3.2rem)", fontWeight: 700, letterSpacing: "-0.03em", marginBottom: 48, lineHeight: 1.1 }}>O <GradText>Bet ON Brasil</GradText> não para.</h2></Reveal>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -919,7 +908,7 @@ Bastidores Reais" }].
               { tag: "BRASÍLIA · 2027", live: false, day: "18", mon: "FEV", year: "2027", title: "Bet ON Brasil — Brasília", place: "Brasília · Distrito Federal", desc: "A próxima edição oficial do evento que conecta o mercado regulado nacional.", cta: "Quero ser avisado" }].
               map(({ tag, live, day, mon, year, title, place, desc, cta }, i) =>
               <Reveal key={title} delay={i * 0.1}>
-                  <Glass hoverGlow={false} style={{ padding: "28px 32px", display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", gap: isMobile ? 16 : 40, position: "relative", overflow: "hidden", background: live ? "linear-gradient(135deg,rgba(73,253,227,0.07),rgba(2,183,222,0.04))" : T.card, border: live ? "1px solid rgba(73,253,227,0.28)" : `1px solid ${T.border}` }}>
+                  <Glass hoverGlow={false} style={{ padding: "28px 32px", display: "flex", alignItems: "center", gap: 40, position: "relative", overflow: "hidden", background: live ? "linear-gradient(135deg,rgba(73,253,227,0.07),rgba(2,183,222,0.04))" : T.card, border: live ? "1px solid rgba(73,253,227,0.28)" : `1px solid ${T.border}` }}>
                     {live && <div style={{ position: "absolute", inset: 0, borderRadius: 16, border: "1px solid rgba(73,253,227,0.5)", pointerEvents: "none", animation: "glow 2s infinite ease-in-out" }} />}
                     <div style={{ flexShrink: 0, textAlign: "center", minWidth: 80 }}>
                       <div style={{ fontFamily: HEAD_FF, fontSize: 48, fontWeight: 700, lineHeight: 1, background: T.grad, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{day}</div>
@@ -947,8 +936,8 @@ Bastidores Reais" }].
         </section>
 
         {/* FORMULÁRIO */}
-        <section id="contato" style={{ padding: isMobile ? "64px 20px" : "120px 64px" }}>
-          <div style={{ maxWidth: 1400, margin: "0 auto", display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: isMobile ? 40 : 80, alignItems: "start" }}>
+        <section id="contato" style={{ padding: "120px 64px" }}>
+          <div style={{ maxWidth: 1400, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }}>
             <div>
               <Reveal><Pill>Patrocínio · Inscrição · Imprensa</Pill></Reveal>
               <Reveal delay={0.1}><h2 style={{ fontFamily: HEAD_FF, fontSize: "clamp(2rem,3.5vw,3rem)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, marginBottom: 20 }}>Sua marca presente onde o mercado é <GradText>construído</GradText></h2></Reveal>
@@ -963,7 +952,7 @@ Bastidores Reais" }].
                 </ul>
               </Reveal>
               <Reveal delay={0.25}>
-                <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3,1fr)", gap: 14, padding: "24px 0", textAlign: isMobile ? "center" : "left", borderTop: `1px solid ${T.border}` }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14, padding: "24px 0", borderTop: `1px solid ${T.border}` }}>
                   {[{ label: "Local", value: "Cubo Itaú · São Paulo" }, { label: "Data", value: "20 de Agosto" }, { label: "Capacidade", value: "150–200 decisores" }].map(({ label, value }) =>
                   <div key={label}>
                       <div style={{ fontFamily: MONO_FF, fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: T.muted, marginBottom: 6 }}>{label}</div>
@@ -1029,9 +1018,9 @@ Bastidores Reais" }].
       </main>
 
       {/* FOOTER */}
-      <footer style={{ padding: isMobile ? "48px 20px 24px" : "64px 64px 32px", borderTop: `1px solid ${T.border}`, background: T.surface2 }}>
-        <div style={{ maxWidth: 1400, margin: "0 auto", width: "100%" }}>
-          <div style={{ display: isMobile ? "flex" : "flex", flexDirection: isMobile ? "column" : "row", justifyContent: "space-between", alignItems: isMobile ? "center" : "flex-start", textAlign: isMobile ? "center" : "left", gap: isMobile ? 32 : 0, paddingBottom: 48, borderBottom: `1px solid ${T.border}`, marginBottom: 32, gap: 48, flexWrap: "wrap" }}>
+      <footer style={{ padding: "64px 64px 32px", borderTop: `1px solid ${T.border}`, background: T.surface2 }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", paddingBottom: 48, borderBottom: `1px solid ${T.border}`, marginBottom: 32, gap: 48, flexWrap: "wrap" }}>
             <div style={{ maxWidth: 340 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
                 <img src={LOGO_URL} alt="Bet ON Brasil" style={{ height: 28, width: "auto", maxWidth: 200, objectFit: "contain", display: "block" }} />
@@ -1039,7 +1028,7 @@ Bastidores Reais" }].
               </div>
               <p style={{ color: T.muted, fontSize: 13, lineHeight: 1.65, fontFamily: BODY_FF }}>O encontro que conecta operadores, reguladores e a infraestrutura técnica que sustenta o iGaming regulamentado no Brasil.</p>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2,1fr)" : "repeat(3,1fr)", gap: isMobile ? 24 : 48 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 48 }}>
               {[
               { title: "Evento", links: ["O novo momento", "Objetivos", "Os debates", "Última edição"] },
               { title: "Participação", links: ["Quem encontrar", "Patrocínio", "Inscrição"] },
