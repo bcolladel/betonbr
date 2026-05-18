@@ -560,7 +560,7 @@ function App() {
           borderBottom: "1px solid rgba(255,255,255,0)"
         }}>
         
-        <nav style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", justifyContent: "space-between", gap: isMobile ? 24 : 0, padding: isMobile ? "14px 20px" : "18px 48px", maxWidth: 1600, margin: "0 auto", gap: isMobile ? 0 : 24 }}>
+        <nav style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: isMobile ? "center" : "space-between", gap: isMobile ? 0 : 24, padding: isMobile ? "14px 20px" : "18px 48px", maxWidth: 1600, margin: "0 auto" }}>
           {/* Logo — always visible, centered on mobile */}
           <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0, flex: isMobile ? 1 : "unset", justifyContent: "center" }}>
             {logoImg(isMobile ? 22 : 26)}
