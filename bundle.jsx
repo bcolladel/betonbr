@@ -569,7 +569,7 @@ function App() {
           {/* Desktop links */}
           {!isMobile && <div style={{ display: "flex", gap: 28, alignItems: "center", flex: 1, justifyContent: "center" }}>
             {["Momento","Objetivos","Público","Debates"].map(l => (
-              <a key={l} href={l === "Momento" ? "#momento" : `#${l.toLowerCase()}`} style={{ color: T.muted, fontSize: 11.5, fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase", fontFamily: HEAD_FF, textDecoration: "none", transition: "color 0.2s", whiteSpace: "nowrap" }}
+              <a key={l} href={l === "Momento" ? "#momento" : ("#" + l.toLowerCase())} style={{ color: T.muted, fontSize: 11.5, fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase", fontFamily: HEAD_FF, textDecoration: "none", transition: "color 0.2s", whiteSpace: "nowrap" }}
                 onMouseEnter={e => e.target.style.color = T.teal} onMouseLeave={e => e.target.style.color = T.muted}>{l}</a>
             ))}
           </div>}
@@ -583,7 +583,7 @@ function App() {
       <main>
 
         {/* HERO */}
-        <section id="momento" style={{ minHeight: "100svh", display: "flex", alignItems: "center", padding: isMobile ? "100px 20px 52px" : "120px 64px 80px", position: "relative", overflow: "hidden" }}>
+        <section style={{ minHeight: "100svh", display: "flex", alignItems: "center", padding: isMobile ? "100px 20px 52px" : "120px 64px 80px", position: "relative", overflow: "hidden" }}>
           <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.06, pointerEvents: "none" }} xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
